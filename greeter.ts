@@ -4,7 +4,7 @@ export function greeter() {
          return "Hello world!"
       },
       helloPerson(name: string) {
-         return `Hello ${name} !`
+         return `Hello ${name}!`
       }
    }
 }
