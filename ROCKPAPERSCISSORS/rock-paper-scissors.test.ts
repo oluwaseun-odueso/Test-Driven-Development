@@ -5,48 +5,61 @@ describe('rock-paper-scissors', () => {
       describe('player beats rock', () => {
          test('given player moves paper and opponent moves rock should return player wins', () => {
             // Arrange 
+            const playerMove = Move.Paper;
+            const opponentMove = Move.Rock;
+            const expected = Outcome.PlayerWins
+
             const sut = createRockPaperScissors()
       
             // Act
-            const actual = sut.play(Move.Paper, Move.Rock);
+            const actual = sut.play(playerMove, opponentMove);
       
             // Assert
-            expect(actual).toBe(Outcome.PlayerWins)
+            expect(actual).toBe(expected)
          })
 
          test('given player moves rock and opponent moves paper should return player loses', () => {
             // Arrange 
+            const playerMove = Move.Rock;
+            const opponentMove = Move.Paper;
+            const expected = Outcome.PlayerLoses
+
             const sut = createRockPaperScissors()
       
             // Act
-            const actual = sut.play(Move.Rock, Move.Paper);
+            const actual = sut.play(playerMove, opponentMove);
       
             // Assert
-            expect(actual).toBe(Outcome.PlayerLoses)
+            expect(actual).toBe(expected)
          })
       })
 
       describe('Scissors beats paper', () => {
          test('given player moves paper and opponent moves scissors should return player loses', () => {
             // Arrange 
+            const playerMove = Move.Paper;
+            const opponentMove = Move.Scissors;
+            const expected = Outcome.PlayerLoses
+
             const sut = createRockPaperScissors()
       
             // Act
-            const actual = sut.play(Move.Paper, Move.Scissors);
+            const actual = sut.play(playerMove, opponentMove);
       
             // Assert
-            expect(actual).toBe(Outcome.PlayerLoses)
+            expect(actual).toBe(expected)
          })
 
          test('given player moves scissors and opponent moves paper should return player wins', () => {
             // Arrange 
+            const playerMove = Move.Scissors;
+            const opponentMove = Move.Paper;
+            const expected = Outcome.PlayerWins
             const sut = createRockPaperScissors()
-      
             // Act
-            const actual = sut.play(Move.Scissors, Move.Paper);
-      
+            const actual = sut.play(playerMove, opponentMove);
             // Assert
-            expect(actual).toBe(Outcome.PlayerWins)
+            expect(actual).toBe(expected)
          })
       })
 
@@ -66,14 +79,33 @@ describe('rock-paper-scissors', () => {
       describe('Rock beats scissors', () => {
          test('given player moves rock and opponent moves scissors should return Player wins', () => {
             // Arrange 
+            const playerMove = Move.Rock;
+            const opponentMove = Move.Scissors;
+            const expected = Outcome.PlayerWins
+
             const sut = createRockPaperScissors()
       
             // Act
-            const actual = sut.play(Move.Rock, Move.Scissors);
+            const actual = sut.play(playerMove, opponentMove);
       
             // Assert
-            expect(actual).toBe(Outcome.PlayerWins)
+            expect(actual).toBe(expected)
          })
+      })
+      
+      test('given player moves scissors and opponent moves rock should return Player loses', () => {
+         // Arrange 
+         const playerMove = Move.Scissors;
+         const opponentMove = Move.Rock;
+         const expected = Outcome.PlayerLoses
+
+         const sut = createRockPaperScissors()
+   
+         // Act
+         const actual = sut.play(playerMove, opponentMove);
+   
+         // Assert
+         expect(actual).toBe(expected)
       })
    })
 })
