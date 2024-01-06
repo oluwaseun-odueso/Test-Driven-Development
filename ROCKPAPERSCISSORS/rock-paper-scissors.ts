@@ -17,6 +17,10 @@ interface RockPaperScissors {
 export function createRockPaperScissors(): RockPaperScissors {
    return {
       play(playerMove: Move, opponentMove: Move) {
+         if (playerMove === opponentMove) {
+            return Outcome.Tie
+         }
+         
          if (opponentMove === Move.Scissors) {
             if (playerMove === Move.Rock) {
                return Outcome.PlayerWins
@@ -33,10 +37,6 @@ export function createRockPaperScissors(): RockPaperScissors {
 
          if (playerMove === Move.Scissors && opponentMove === Move.Rock) {
             return Outcome.PlayerLoses
-         }
-
-         if (playerMove === opponentMove) {
-            return Outcome.Tie
          }
 
          return Outcome.PlayerWins

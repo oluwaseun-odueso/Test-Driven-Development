@@ -63,18 +63,44 @@ describe('rock-paper-scissors', () => {
          })
       })
 
-      // describe('Ties', () => {
-      //    test('given player moves paper and opponent moves paper should return Tie', () => {
-      //       // Arrange 
-      //       const sut = createRockPaperScissors()
+      describe('Ties', () => {
+         test('given player moves rock and opponent moves scissors should return Player wins', () => {
+            // Arrange 
+            const playerMove = Move.Paper;
+            const opponentMove = Move.Paper;
+            const expected = Outcome.Tie
+            const sut = createRockPaperScissors()
+            // Act
+            const actual = sut.play(playerMove, opponentMove);
+            // Assert
+            expect(actual).toBe(expected)
+         })
+
+         test('given player moves rock and opponent moves scissors should return Player wins', () => {
+            // Arrange 
+            const playerMove = Move.Rock;
+            const opponentMove = Move.Rock;
+            const expected = Outcome.Tie
+            const sut = createRockPaperScissors()
+            // Act
+            const actual = sut.play(playerMove, opponentMove);
+            // Assert
+            expect(actual).toBe(expected)
+         })
+
+         test('given player moves rock and opponent moves scissors should return Player wins', () => {
+            // Arrange 
+            const playerMove = Move.Scissors;
+            const opponentMove = Move.Scissors;
+            const expected = Outcome.Tie
+            const sut = createRockPaperScissors()
+            // Act
+            const actual = sut.play(playerMove, opponentMove);
       
-      //       // Act
-      //       const actual = sut.play(Move.Paper, Move.Paper);
-      
-      //       // Assert
-      //       expect(actual).toBe(Outcome.Tie)
-      //    })
-      // })
+            // Assert
+            expect(actual).toBe(expected)
+         })
+      })
 
       describe('Rock beats scissors', () => {
          test('given player moves rock and opponent moves scissors should return Player wins', () => {
