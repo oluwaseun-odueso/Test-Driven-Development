@@ -15,31 +15,23 @@ interface RockPaperScissors {
 }
 
 export function createRockPaperScissors(): RockPaperScissors {
+   const scenarios = new Array(
+      {playerMove: Move.Scissors, opponentMove: Move.Paper, outcome: Outcome.PlayerWins},
+      {playerMove: Move.Scissors, opponentMove: Move.Rock, outcome: Outcome.PlayerLoses},
+      {playerMove: Move.Rock, opponentMove: Move.Scissors, outcome: Outcome.PlayerWins},
+      {playerMove: Move.Rock, opponentMove: Move.Paper, outcome: Outcome.PlayerLoses},
+      {playerMove: Move.Paper, opponentMove: Move.Rock, outcome: Outcome.PlayerWins},
+      {playerMove: Move.Paper, opponentMove: Move.Scissors, outcome: Outcome.PlayerLoses},
+   )
+
    return {
       play(playerMove: Move, opponentMove: Move) {
-         if (playerMove === opponentMove) {
-            return Outcome.Tie
-         }
+         const result = scenarios.find(scenario => scenario.playerMove === playerMove && scenario.opponentMove === opponentMove)
          
-         if (opponentMove === Move.Scissors) {
-            if (playerMove === Move.Rock) {
-               return Outcome.PlayerWins
-            }
-            return Outcome.PlayerLoses
-         }
+         return (result) ? result.outcome : Outcome.Tie
+         // if (result) return result.outcome;
 
-         if (opponentMove === Move.Paper) {
-            if (playerMove === Move.Scissors) {
-               return Outcome.PlayerWins
-            }
-            return Outcome.PlayerLoses
-         }
-
-         if (playerMove === Move.Scissors && opponentMove === Move.Rock) {
-            return Outcome.PlayerLoses
-         }
-
-         return Outcome.PlayerWins
+         // return Outcome.Tie
       }
    }
 }
