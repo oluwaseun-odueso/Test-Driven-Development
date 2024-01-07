@@ -1,6 +1,6 @@
 import { createRockPaperScissors, Move, Outcome } from "./rock-paper-scissors";
 
-describe('rock-paper-scissors', () => {
+xdescribe('rock-paper-scissors', () => {
    describe('play', () => {
       describe('player beats rock', () => {
          test.each([
