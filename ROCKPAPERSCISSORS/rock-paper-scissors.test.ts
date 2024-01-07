@@ -3,6 +3,17 @@ import { createRockPaperScissors, Move, Outcome } from "./rock-paper-scissors";
 describe('rock-paper-scissors', () => {
    describe('play', () => {
       describe('player beats rock', () => {
+         test.each([
+            {playerMove: Move.Paper, opponentMove: Move.Rock, expected: Outcome.PlayerWins},
+            {playerMove: Move.Rock, opponentMove: Move.Paper, expected: Outcome.PlayerLoses}
+         ])('Player move: $playerMove, Opponent move: $OpponentMove, Expected outcome: $expected', ({playerMove, opponentMove, expected}) => {
+            const sut = createRockPaperScissors()
+            // Act
+            const actual = sut.play(playerMove, opponentMove);
+            // Assert
+            expect(actual).toBe(expected)
+         })
+
          test('given player moves paper and opponent moves rock should return player wins', () => {
             // Arrange 
             const playerMove = Move.Paper;

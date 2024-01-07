@@ -1,13 +1,13 @@
 export enum Move {
-   Paper, 
-   Rock, 
-   Scissors
+   Paper = 'Paper', 
+   Rock = 'Rock', 
+   Scissors = 'Scissors'
 }
 
 export enum Outcome {
-   PlayerWins, 
-   PlayerLoses,
-   Tie
+   PlayerWins = 'Playerwins', 
+   PlayerLoses = 'playerloses',
+   Tie = 'Tie'
 }
 
 interface RockPaperScissors {
