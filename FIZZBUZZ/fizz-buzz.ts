@@ -7,7 +7,8 @@ export function createFizzBuzz(): FizzBuzz {
       go: function(num: number): string {
          if (num % 3 === 0 && num % 5 === 0) return 'Fizz-buzz'
          if (num % 5 === 0) return "Buzz"
-         return 'Fizz'
+         if (num % 3 === 0) return "Fizz"
+         return num.toString()
       }
    }
 }

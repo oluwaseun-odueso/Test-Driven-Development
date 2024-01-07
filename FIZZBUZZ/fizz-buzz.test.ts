@@ -57,4 +57,19 @@ describe('fizz-buzz', () => {
          expect(actual).toBe(expected)
       })
    })
+
+   describe('number itself', () => {
+      test.each([
+         {input: 1, expected: "1"},
+         {input: 46, expected: "46"},
+         {input: 76, expected: "76"}
+      ])('$input', ({input, expected}) => {
+         // Arrange
+         const sut = createFizzBuzz()
+         // Act
+         const actual = sut.go(input)
+         // Asser
+         expect(actual).toBe(expected)
+      })
+   })
 })
