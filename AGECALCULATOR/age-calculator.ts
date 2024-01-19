@@ -1,11 +1,14 @@
 export function createAgeCalculator() {
    return function (birthDate: Date, targetDate: Date) {
-      const differenceInYears = targetDate.getFullYear() - birthDate.getFullYear()
-      if (birthDate.getMonth() > targetDate.getMonth() ||
-      (birthDate.getMonth() == targetDate.getMonth() && birthDate.getDate() > targetDate.getDate())) {
-         return differenceInYears - 1
+      const completedYears = targetDate.getFullYear() - birthDate.getFullYear()
+      if (hasNotHadBirthday(birthDate, targetDate)) {
+         return completedYears - 1
       }
-      // if (birthDate.getMonth() == targetDate.getMonth() && birthDate.getDate() > targetDate.getDate()) return differenceInYears - 1
-      return differenceInYears
+      return completedYears
    }
+}
+
+function hasNotHadBirthday(birthDate: Date, targetDate: Date) {
+   return birthDate.getMonth() > targetDate.getMonth() || 
+      (birthDate.getMonth() === targetDate.getMonth() && birthDate.getDate() > targetDate.getDate())
 }
