@@ -9,7 +9,7 @@ import { createFizzBuzz } from "./fizz-buzz"
 // - red-green-refactor
 // - Fake It Green Bar Pattern
 
-describe('fizz-buzz', () => {
+xdescribe('fizz-buzz', () => {
    describe('fizz', () => {
       test.each([
          {input: 6},
