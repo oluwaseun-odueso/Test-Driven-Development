@@ -10,7 +10,7 @@ describe('string-calculator', () => {
          // Arrange
          const input = ""
          const expected = 0;
-         const sut = new StringCalculator();
+         const sut = createSut();
    
          // Act
          const acutal = sut.add(input)
@@ -27,7 +27,7 @@ describe('string-calculator', () => {
          {input: "300", expected: 300}
       ])('input: $input, expected: $expected', ({input, expected}) => {
          // Arrange
-         const sut = new StringCalculator();
+         const sut = createSut();
    
          // Act
          const acutal = sut.add(input)
@@ -44,7 +44,7 @@ describe('string-calculator', () => {
          {input: "511, 13", expected: 524}
       ])('input: $input', ({input, expected}) => {
          // Arrange
-         const sut = new StringCalculator();
+         const sut = createSut();
    
          // Act
          const acutal = sut.add(input)
@@ -67,7 +67,7 @@ describe('string-calculator', () => {
          {input: "38, 94, 500", expected: 632}
       ])('input: $input, expected: $expected', ({input, expected}) => {
          // Arrange
-         const sut = new StringCalculator();
+         const sut = createSut();
    
          // Act
          const acutal = sut.add(input)
@@ -76,4 +76,8 @@ describe('string-calculator', () => {
          expect(acutal).toBe(expected)
       })
    })
+
+   function createSut () {
+      return new StringCalculator()
+   }
 })
