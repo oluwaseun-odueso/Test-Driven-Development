@@ -53,10 +53,27 @@ describe('string-calculator', () => {
          expect(acutal).toBe(expected)
       })
 
-      test('learning test', () => {
-         expect("1,2,3".split(",")).toStrictEqual(["1","2","3"]);
-         expect(["1","2","3"].map((s) => Number.parseInt(s))).toStrictEqual([1,2,3])
-      })
+      // test('learning test', () => {
+      //    expect("1,2,3".split(",")).toStrictEqual(["1","2","3"]);
+      //    expect(["1","2","3"].map((s) => Number.parseInt(s))).toStrictEqual([1,2,3])
+      //    expect([1,2,3].reduce((n, total) => total + n)).toBe(6)
+      // })
    })
    
+   describe('many numbers', () => {
+      test.each([
+         {input: "1, 8, 5", expected: 14},
+         {input: "0, 45, 8", expected: 53},
+         {input: "38, 94, 500", expected: 632}
+      ])('input: $input, expected: $expected', ({input, expected}) => {
+         // Arrange
+         const sut = new StringCalculator();
+   
+         // Act
+         const acutal = sut.add(input)
+   
+         // Assert
+         expect(acutal).toBe(expected)
+      })
+   })
 })
