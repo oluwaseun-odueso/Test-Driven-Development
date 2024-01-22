@@ -8,14 +8,26 @@ export class StringCalculator {
          delimeter = this.extractCustomDelimeter(input);
          input = this.removeCustomDelimeterHeader(input);
       }
-      const parsedNumbers = input.split(delimeter)
-         .map(s => Number.parseInt(s))
+      const parsedNumbers = this.parseNumbers(input, delimeter)
+      this.throwIfAnyNegativeNumbers(parsedNumbers)
+      
+      return this.sumTotal(parsedNumbers)
+   }
+
+   private sumTotal(parsedNumbers: number[]) {
+      return parsedNumbers.reduce((n, total) => total + n);
+   }
+
+   private throwIfAnyNegativeNumbers (parsedNumbers: number[]) {
       const negativeNumbers = parsedNumbers.filter(n => n < 0)
       if (negativeNumbers.length > 0) {
          throw `negatives not allowed: ${negativeNumbers.join(",")}`
       }
-      
-      return parsedNumbers.reduce((n, total) => total + n)
+   }
+
+   private parseNumbers(input: string, delimeter: string | RegExp) {
+      return input.split(delimeter)
+         .map(s => Number.parseInt(s))
    }
 
    private removeCustomDelimeterHeader (input: string): string {
