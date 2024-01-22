@@ -104,6 +104,33 @@ describe('string-calculator', () => {
       })
    })
 
+   describe('custom delimeter', () => {
+      test('//;\n1;2', () => {
+         // Arrange
+         const sut = createSut();
+         const input = '//;\n1;2'
+         const expected = 3
+
+         // Act
+         const acutal = sut.add(input)
+   
+         // Assert
+         expect(acutal).toBe(expected)
+      });
+      test('//@\n21@52@11', () => {
+         // Arrange
+         const sut = createSut();
+         const input = '//@\n21@52@11'
+         const expected = 84
+
+         // Act
+         const acutal = sut.add(input)
+   
+         // Assert
+         expect(acutal).toBe(expected)
+      })
+   })
+
    // test('learning', () => {
    //    expect("1,2\n3".split(/,|\n/)).toStrictEqual(["1","2","3"])
    // })
