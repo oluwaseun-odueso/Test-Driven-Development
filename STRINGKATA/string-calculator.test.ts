@@ -77,6 +77,37 @@ describe('string-calculator', () => {
       })
    })
 
+   describe('new line as delimeter', () => {
+      test('1, 2\\3', () => {
+         // Arrange
+         const sut = createSut();
+         const input = '1,2\n3'
+         const expected = 6
+
+         // Act
+         const acutal = sut.add(input)
+   
+         // Assert
+         expect(acutal).toBe(expected)
+      })
+      test('1\n2,3,4\\n50', () => {
+         // Arrange
+         const sut = createSut();
+         const input = '1\n2,3,4\n50'
+         const expected = 60
+
+         // Act
+         const acutal = sut.add(input)
+   
+         // Assert
+         expect(acutal).toBe(expected)
+      })
+   })
+
+   // test('learning', () => {
+   //    expect("1,2\n3".split(/,|\n/)).toStrictEqual(["1","2","3"])
+   // })
+
    function createSut () {
       return new StringCalculator()
    }

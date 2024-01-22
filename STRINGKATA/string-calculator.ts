@@ -3,7 +3,7 @@ export class StringCalculator {
       if (input.length === 0) {
          return 0
       }
-      return input.split(",")
+      return input.split(/,|\n/)
          .map(s => Number.parseInt(s))
          .reduce((n, total) => total + n)
    }
