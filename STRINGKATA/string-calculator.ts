@@ -8,9 +8,15 @@ export class StringCalculator {
          delimeter = this.extractCustomDelimeter(input);
          input = this.removeCustomDelimeterHeader(input);
       }
-      return input.split(delimeter)
+      const parsedNumbers = input.split(delimeter)
          .map(s => Number.parseInt(s))
-         .reduce((n, total) => total + n)
+      const negativeNumber = parsedNumbers.find(n => n < 0)
+      if (negativeNumber) {
+         throw `negatives not allowed: ${negativeNumber}`
+      }
+      
+         
+      return parsedNumbers.reduce((n, total) => total + n)
    }
 
    private removeCustomDelimeterHeader (input: string): string {

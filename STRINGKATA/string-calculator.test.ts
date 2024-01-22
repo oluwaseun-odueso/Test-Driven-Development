@@ -131,9 +131,26 @@ describe('string-calculator', () => {
       })
    })
 
-   // test('learning', () => {
-   //    expect("1,2\n3".split(/,|\n/)).toStrictEqual(["1","2","3"])
-   // })
+   describe('throws on negative numbers', () => {
+      describe('one negative number in input', () => {
+         test.each([
+            {input: "1,2,-3", expected: "negatives not allowed: -3"},
+            {input: "15,-34,30", expected: "negatives not allowed: -34"},
+            {input: "-100,2,4", expected: "negatives not allowed: -100"}
+         ])('input: $input', ({input, expected}) => {
+            // Arrange
+            const sut = createSut();
+
+            // Act/Assert
+            expect(() => {
+               sut.add(input)
+            }).toThrow(expected)
+
+         })
+      })
+   })
+
+
 
    function createSut () {
       return new StringCalculator()
