@@ -4,12 +4,25 @@ export class StringCalculator {
          return 0
       }
       let delimeter: string | RegExp = /,|\n/;
-      if (input.startsWith("//")){
-         delimeter = input[2];
-         input = input.slice(3);
+      if (this.hasCustomDelimeter(input)){
+         delimeter = this.extractCustomDelimeter(input);
+         input = this.removeCustomDelimeterHeader(input);
       }
       return input.split(delimeter)
          .map(s => Number.parseInt(s))
          .reduce((n, total) => total + n)
    }
+
+   private removeCustomDelimeterHeader (input: string): string {
+      return input.slice(3)
+   }
+
+   private extractCustomDelimeter (input: string): string | RegExp {
+      return input[2]
+   }
+
+   private hasCustomDelimeter(input: string) {
+      return input.startsWith("//")
+   }
 }
+
