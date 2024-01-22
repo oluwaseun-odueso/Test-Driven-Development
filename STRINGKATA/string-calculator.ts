@@ -8,8 +8,9 @@ export class StringCalculator {
          delimeter = this.extractCustomDelimeter(input);
          input = this.removeCustomDelimeterHeader(input);
       }
-      const parsedNumbers = this.parseNumbers(input, delimeter)
+      let parsedNumbers = this.parseNumbers(input, delimeter)
       this.throwIfAnyNegativeNumbers(parsedNumbers)
+      parsedNumbers = parsedNumbers.filter(n => n <= 1000)
       
       return this.sumTotal(parsedNumbers)
    }

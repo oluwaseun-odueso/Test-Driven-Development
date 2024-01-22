@@ -182,6 +182,22 @@ describe('string-calculator', () => {
 
          })
       })
+
+      describe('large numbers > 1000 should be filtered out', () => {
+         test.each([
+            {input: "1,1001", expected: 1},
+            {input: "1,2,1000", expected: 1003},
+            {input: "15,34,78,5000", expected: 127}
+         ])('input: $input', ({input, expected}) => {
+            // Arrange
+            const sut = createSut();
+
+            // Act
+            const actual = sut.add(input)
+            // Asser
+            expect(actual).toBe(expected)
+         })
+      })
    })
 
    test('learning join', () => {
