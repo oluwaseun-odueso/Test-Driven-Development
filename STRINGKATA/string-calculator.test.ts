@@ -148,9 +148,45 @@ describe('string-calculator', () => {
 
          })
       })
+
+      describe('two negative numbers in input', () => {
+         test.each([
+            {input: "1,-2,-3", expected: "negatives not allowed: -2,-3"},
+            {input: "-15,-34,30", expected: "negatives not allowed: -15,-34"},
+            {input: "-100,2,-4", expected: "negatives not allowed: -100,-4"}
+         ])('input: $input', ({input, expected}) => {
+            // Arrange
+            const sut = createSut();
+
+            // Act/Assert
+            expect(() => {
+               sut.add(input)
+            }).toThrow(expected)
+
+         })
+      })
+
+      describe('many negative numbers in input', () => {
+         test.each([
+            {input: "1,-2,-3,-8,-10", expected: "negatives not allowed: -2,-3,-8,-10"},
+            {input: "-15,-34,30,-15,-60,-13", expected: "negatives not allowed: -15,-34,-15,-60,-13"},
+            {input: "-100,2,-4,-5,25,-24", expected: "negatives not allowed: -100,-4,-5,-24"}
+         ])('input: $input', ({input, expected}) => {
+            // Arrange
+            const sut = createSut();
+
+            // Act/Assert
+            expect(() => {
+               sut.add(input)
+            }).toThrow(expected)
+
+         })
+      })
    })
 
-
+   test('learning join', () => {
+      expect([-2,-3].join(",")).toBe("-2,-3")
+   })
 
    function createSut () {
       return new StringCalculator()

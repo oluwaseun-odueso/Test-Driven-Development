@@ -10,12 +10,11 @@ export class StringCalculator {
       }
       const parsedNumbers = input.split(delimeter)
          .map(s => Number.parseInt(s))
-      const negativeNumber = parsedNumbers.find(n => n < 0)
-      if (negativeNumber) {
-         throw `negatives not allowed: ${negativeNumber}`
+      const negativeNumbers = parsedNumbers.filter(n => n < 0)
+      if (negativeNumbers.length > 0) {
+         throw `negatives not allowed: ${negativeNumbers.join(",")}`
       }
       
-         
       return parsedNumbers.reduce((n, total) => total + n)
    }
 
