@@ -75,6 +75,24 @@ describe('character-copy', () => {
         // expect(destination.getWrittenChars()).toStrictEqual(chars)
       })
     })
+
+    describe('characters after newline are not written', () => {
+      test.each([
+        {chars: ['a', 'b', 'c', '\n', 'e'], expected: ['a', 'b', 'c']},
+        {chars: ['d', 'b', 'ce', '\n', 'e'], expected: ['d', 'b', 'ce']},
+      ])('chars: $chars', ({chars, expected}) => {
+        // Arrange
+        const source = createSource(chars)
+        const destination = createDestination()
+
+        const sut = createCopier(source, destination)
+        // Act
+        sut.copy();
+        // Assert
+        // Checking order and many characters
+        expect(destination.getWrittenChars()).toStrictEqual(expected)
+      })
+    })
   })
 })
 

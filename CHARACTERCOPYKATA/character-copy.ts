@@ -13,8 +13,7 @@ export class Copier {
   ) {}
 
   copy() {
-    let char: string
-    char = this.source.readChar();
+    let char: string = this.source.readChar();
     while (char !== '\n') {
       this.destination.writeChar(char);
       char = this.source.readChar()
