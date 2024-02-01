@@ -13,6 +13,11 @@ export class Copier {
   ) {}
 
   copy() {
-    this.destination.writeChar(this.source.readChar())
+    let char: string
+    char = this.source.readChar();
+    while (char !== '\n') {
+      this.destination.writeChar(char);
+      char = this.source.readChar()
+    };
   }
 }
