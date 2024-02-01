@@ -12,15 +12,12 @@ describe('character-copy', () => {
         // Arrange
         const source = createSource([])
 
-        const mockWriteChar = jest.fn();
-        const destination: Destination = {
-          writeChar: mockWriteChar
-        }
-        const sut = new Copier(source, destination)
+        const destination: Destination = createDestination()
+        const sut = createCopier(source, destination)
         // Act
         sut.copy();
         // Assert
-        expect(mockWriteChar).toBeCalledTimes(0)
+        expect(destination.writeChar).toBeCalledTimes(0)
       })
     })
 
@@ -32,16 +29,14 @@ describe('character-copy', () => {
       ])('char: $char', ({char}) => {
         // Arrange
         const source = createSource([char])
-        const mockWriteChar = jest.fn();
-        const destination: Destination = {
-          writeChar: mockWriteChar
-        }
-        const sut = new Copier(source, destination)
+        const destination: Destination = createDestination()
+
+        const sut = createCopier(source, destination)
         // Act
         sut.copy();
         // Assert
-        expect(mockWriteChar).toBeCalledTimes(1)
-        expect(mockWriteChar).toHaveBeenCalledWith(char)
+        expect(destination.writeChar).toBeCalledTimes(1)
+        expect(destination.writeChar).toHaveBeenCalledWith(char)
       })
     })
 
@@ -53,21 +48,28 @@ describe('character-copy', () => {
       ])('chars: $chars', ({chars}) => {
         // Arrange
         const source = createSource(chars)
+        const destination = createDestination()
 
-        const mockWriteChar = jest.fn();
-        const destination: Destination = {
-          writeChar: mockWriteChar
-        }
-        const sut = new Copier(source, destination)
+        const sut = createCopier(source, destination)
         // Act
         sut.copy();
         // Assert
-        expect(mockWriteChar).toBeCalledTimes(chars.length)
-        chars.map(c => expect(mockWriteChar).toHaveBeenCalledWith(c))
+        expect(destination.writeChar).toBeCalledTimes(chars.length)
+        chars.map(c => expect(destination.writeChar).toHaveBeenCalledWith(c))
       })
     })
   })
 })
+
+function createCopier (source: Source, destination: Destination) {
+  return new Copier(source, destination)
+}
+
+function createDestination () {
+  return {
+    writeChar: jest.fn()
+  };
+}
 
 function createSource (chars: string[]) {
   const mockReadChar = jest.fn()
