@@ -29,14 +29,14 @@ describe('character-copy', () => {
       ])('char: $char', ({char}) => {
         // Arrange
         const source = createSource([char])
-        const destination: Destination = createDestination()
+        const destination = createDestination()
 
         const sut = createCopier(source, destination)
         // Act
         sut.copy();
         // Assert
         expect(destination.writeChar).toBeCalledTimes(1)
-        expect(destination.writeChar).toHaveBeenCalledWith(char)
+        expect(destination.getWrittenChars()).toContain(char)
       })
     })
 
@@ -54,8 +54,25 @@ describe('character-copy', () => {
         // Act
         sut.copy();
         // Assert
-        expect(destination.writeChar).toBeCalledTimes(chars.length)
-        chars.map(c => expect(destination.writeChar).toHaveBeenCalledWith(c))
+        chars.map(c => expect(destination.getWrittenChars()).toContain(c))
+      })
+    })
+
+    describe('multiple characters are written in the correct order', () => {
+      test.each([
+        {chars: ['a', 'b', 'c', 'd', 'e']},
+      ])('chars: $chars', ({chars}) => {
+        // Arrange
+        const source = createSource(chars)
+        const destination = createDestination()
+
+        const sut = createCopier(source, destination)
+        // Act
+        sut.copy();
+        // Assert
+        // Checking order and many characters
+        chars.map(c => expect(destination.getWrittenChars()).toContain(c))
+        // expect(destination.getWrittenChars()).toStrictEqual(chars)
       })
     })
   })
@@ -66,8 +83,10 @@ function createCopier (source: Source, destination: Destination) {
 }
 
 function createDestination () {
+  const writtenChar: string[] = []
   return {
-    writeChar: jest.fn()
+    writeChar: jest.fn((c) => writtenChar.push(c)),
+    getWrittenChars: () => writtenChar
   };
 }
 
