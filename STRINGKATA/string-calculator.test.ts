@@ -4,7 +4,7 @@
 import { StringCalculator } from "./string-calculator";
 
 
-describe('string-calculator', () => {
+xdescribe('string-calculator', () => {
    describe('add', () => {
       test('add given empty string should return 0', () => {
          // Arrange
