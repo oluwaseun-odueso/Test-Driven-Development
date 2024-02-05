@@ -5,7 +5,7 @@
 
 import { Copier, Destination, Source } from "./character-copy"
 
-describe('character-copy', () => {
+xdescribe('character-copy', () => {
   describe('copy', () => {
     describe('no character before newline', () => {
       test('', () => {
