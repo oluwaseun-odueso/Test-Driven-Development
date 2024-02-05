@@ -7,36 +7,59 @@ import { FileWriter } from "./file-writer";
 describe('CustomerCsvFileWriter', () => {
   describe('one customer', () => {
     test.each([
-      {customer: new Customer("Peter Wiles", "12787939829"), expected: "Peter Wiles,12787939829"},
-      {customer: new Customer("Larry Page", "32773097753874"), expected: "Larry Page,32773097753874"}
-    ])('customer: $expected', ({customer, expected}) => {
+      {customer: createCustomer ("Peter Wiles", "12787939829")},
+      {customer: createCustomer ("Larry Page", "32773097753874")}
+    ])('customer: $expected', ({customer}) => {
       // Arrange
-      const fileWriter: FileWriter = {
-        writeline: jest.fn()
-      }
-      const sut = new CustomerCsvFileWriter(fileWriter)
+      const fileWriter = createFileWriter()
+      const sut = createCustomerCsvFileWriter(fileWriter)
+      const fileName = "customers.csv";
       // Act
-      sut.writeCustomers("customers.csv", [customer])
+      sut.writeCustomers(fileName, [customer])
       // Assert
       expect(fileWriter.writeline).toHaveBeenCalledTimes(1);
-      expect(fileWriter.writeline).toBeCalledWith("customers.csv", expected)
+      assertCustomerWasReturnedToFile(fileWriter, fileName, customer)
+      // expect(fileWriter.writeline).toBeCalledWith("customers.csv", expected)
     })
   })
 
   describe('two customers', () => {
     test('should write both customers', () => {
       // Arrange
-      const customers = [new Customer("Peter Wiles", "12787939829"), new Customer("Larry Page", "32773097753874")]
-      const fileWriter: FileWriter = {
-        writeline: jest.fn()
-      }
-      const sut = new CustomerCsvFileWriter(fileWriter)
+      const customers = [
+        createCustomer ("Peter Wiles", "12787939829"), 
+        createCustomer("Larry Page", "32773097753874"),
+        createCustomer ("Alan Fisher", "21589330878240")
+
+      ]
+      const fileWriter = createFileWriter()
+      const sut = createCustomerCsvFileWriter(fileWriter)
+      const fileName = "cust.csv";
       // Act
-      sut.writeCustomers("cust.csv", customers)
+      sut.writeCustomers(fileName, customers)
       // Assert
-      expect(fileWriter.writeline).toHaveBeenCalledTimes(2);
-      expect(fileWriter.writeline).toBeCalledWith("cust.csv", "Peter Wiles,12787939829")
-      expect(fileWriter.writeline).toBeCalledWith("cust.csv", "Larry Page,32773097753874")
+      expect(fileWriter.writeline).toHaveBeenCalledTimes(3);
+      assertCustomerWasReturnedToFile(fileWriter, fileName, customers[0])
+      assertCustomerWasReturnedToFile(fileWriter, fileName, customers[1])
+      assertCustomerWasReturnedToFile(fileWriter, fileName, customers[2])
     })
   })
 })
+
+function createCustomerCsvFileWriter (fileWriter: FileWriter) {
+  return new CustomerCsvFileWriter(fileWriter)
+}
+
+function createFileWriter (): FileWriter {
+  return {
+    writeline: jest.fn()
+  }
+}
+
+function createCustomer (name: string, contactNumber: string) {
+  return new Customer(name, contactNumber)
+}
+
+function assertCustomerWasReturnedToFile (fileWriter: FileWriter, fileName: string, customer: Customer) {
+  expect(fileWriter.writeline).toBeCalledWith(fileName, `${customer.name},${customer.contactNumber}`)
+}
