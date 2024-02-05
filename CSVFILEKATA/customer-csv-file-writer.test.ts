@@ -39,9 +39,7 @@ describe('CustomerCsvFileWriter', () => {
       sut.writeCustomers(fileName, customers)
       // Assert
       expect(fileWriter.writeline).toHaveBeenCalledTimes(3);
-      assertCustomerWasReturnedToFile(fileWriter, fileName, customers[0])
-      assertCustomerWasReturnedToFile(fileWriter, fileName, customers[1])
-      assertCustomerWasReturnedToFile(fileWriter, fileName, customers[2])
+      asserCustomersReturnedToFile(fileWriter, fileName, customers)
     })
   })
 })
@@ -62,4 +60,10 @@ function createCustomer (name: string, contactNumber: string) {
 
 function assertCustomerWasReturnedToFile (fileWriter: FileWriter, fileName: string, customer: Customer) {
   expect(fileWriter.writeline).toBeCalledWith(fileName, `${customer.name},${customer.contactNumber}`)
+}
+
+function asserCustomersReturnedToFile (fileWriter: FileWriter, fileName: string, customers: Customer[]) {
+  for (let index = 0; index < customers.length; index += 1) {
+    assertCustomerWasReturnedToFile(fileWriter, fileName, customers[index])
+  }
 }
